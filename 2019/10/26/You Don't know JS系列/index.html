@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon_180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon_medium_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon_small_16x16.png">
+  <link rel="mask-icon" href="/images/favicon/safari_pinned_tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="最近有时间（其实之前挤挤也有😄）看了买来已经落灰的《You don’t know JS》系列，这个系列对我来说获益不少，里面讲解了很多我在 js 方面的知识漏洞，虽然部分内容也许不能直接应用到工作中的业务开发上，但对夯实自己的基础及长远来看是很有帮助的，此书的讲解方式我个人也比较喜欢，在此记录下我在书里面发现的知识盲点或一知半解的地方以加强印象。 ps: 关于这个系列的笔记可能篇幅会较长，大概">
+<meta property="og:type" content="article">
+<meta property="og:title" content="You don&#39;t know JS 系列笔记">
+<meta property="og:url" content="http://yoursite.com/2019/10/26/You%20Don't%20know%20JS%E7%B3%BB%E5%88%97/index.html">
+<meta property="og:site_name" content="Jumbling">
+<meta property="og:description" content="最近有时间（其实之前挤挤也有😄）看了买来已经落灰的《You don’t know JS》系列，这个系列对我来说获益不少，里面讲解了很多我在 js 方面的知识漏洞，虽然部分内容也许不能直接应用到工作中的业务开发上，但对夯实自己的基础及长远来看是很有帮助的，此书的讲解方式我个人也比较喜欢，在此记录下我在书里面发现的知识盲点或一知半解的地方以加强印象。 ps: 关于这个系列的笔记可能篇幅会较长，大概">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-26T09:26:52.000Z">
+<meta property="article:modified_time" content="2024-02-23T05:17:27.992Z">
+<meta property="article:author" content="Jam">
+<meta property="article:tag" content="博客">
+<meta property="article:tag" content="you don&#39;t know js">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2019/10/26/You%20Don't%20know%20JS%E7%B3%BB%E5%88%97/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2019/10/26/You%20Don't%20know%20JS%E7%B3%BB%E5%88%97/","path":"2019/10/26/You Don't know JS系列/","title":"You don't know JS 系列笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>You don't know JS 系列笔记 | Jumbling</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Jumbling</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%8F%8A%E9%97%AD%E5%8C%85"><span class="nav-number">1.</span> <span class="nav-text">作用域及闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">编译原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%E6%8F%90%E5%8D%87"><span class="nav-number">1.2.</span> <span class="nav-text">声明提升</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AD%E5%8C%85"><span class="nav-number">1.3.</span> <span class="nav-text">闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97"><span class="nav-number">1.3.1.</span> <span class="nav-text">模块</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jam</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/26/You%20Don't%20know%20JS%E7%B3%BB%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jam">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jumbling">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="You don't know JS 系列笔记 | Jumbling">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          You don't know JS 系列笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-10-26 17:26:52" itemprop="dateCreated datePublished" datetime="2019-10-26T17:26:52+08:00">2019-10-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-02-23 13:17:27" itemprop="dateModified" datetime="2024-02-23T13:17:27+08:00">2024-02-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/notes/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>最近有时间（其实之前挤挤也有😄）看了买来已经落灰的《You don’t know JS》系列，这个系列对我来说获益不少，里面讲解了很多我在 js 方面的知识漏洞，虽然部分内容也许不能直接应用到工作中的业务开发上，但对夯实自己的基础及长远来看是很有帮助的，此书的讲解方式我个人也比较喜欢，在此记录下我在书里面发现的知识盲点或一知半解的地方以加强印象。</p>
+<p>ps: 关于这个系列的笔记可能篇幅会较长，大概会按自己的习惯分成几篇来记录</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="作用域及闭包"><a href="#作用域及闭包" class="headerlink" title="作用域及闭包"></a>作用域及闭包</h2><h3 id="编译原理"><a href="#编译原理" class="headerlink" title="编译原理"></a>编译原理</h3><p>在这里先宏观简单提一下js的编译原理，js被归类为“动态”或“解释执行” 语言，实际上它是编译语言，但与传统编译语言不同，它 <em>不是提前编译</em>  的。</p>
+<p>传统编译语言编译 <strong>大致</strong> 可分为三个步骤</p>
+<ol>
+<li><p>词法分析&#x2F;分词 （Lexing&#x2F;Tokenizing）</p>
+<p>说作<strong>分词</strong>可能会更好理解，这个过程就是 <em>将由字符组成的字符串分解成（对编程语言来说）</em> 有意义的代码块，这些代码块被称为词法单元。例如 <code>var a = 2;</code>被分解为这些词法单元： <code>var</code> 、<code>a</code>、<code>=</code>、<code>2</code>、<code>;</code> 。</p>
+</li>
+<li><p>语法分析（parsing）</p>
+<p>这个过程是 *将词法单元转换成一个由元素 <strong>逐级嵌套</strong>所组成的代表了程序语法结构的树*。也就是常常能听到的 “<strong>抽象语法树（AST）</strong>”。关于抽象语法树在这里都只是粗略的提到了一下，知道这个概念。</p>
+</li>
+<li><p>代码生成</p>
+<p>将上一步生成的AST转换成可执行的代码的过程。</p>
+</li>
+</ol>
+<p>但JS引擎编译会比上面三个步骤要复杂，例如在 <em>语法分析</em> 和 <em>代码生成</em>  阶段有特定的步骤对<strong>运行性能进行优化</strong>，包括对冗余元素进行优化。</p>
+<p>在这个作用域章节提到编译原理是因为引擎在执行代码时进行的 <strong>LHS查询</strong> 和 <strong>RHS查询</strong> 时会在作用域中查找查询中涉及到的变量。</p>
+<h3 id="声明提升"><a href="#声明提升" class="headerlink" title="声明提升"></a>声明提升</h3><p>函数声明和变量声明都会被提升，但是<strong>函数会被首先提升，然后才是变量</strong>。</p>
+<p>函数声明通常会被提升到所在作用域的顶部，这个过程不会像下面代码暗示的那样可以被条件判断控制。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">foo</span>(); <span class="comment">// &quot;b&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">if</span>(a) &#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;b&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>作者提到，这个行为不可靠，在未来的js版本中可能发生变化！亲测，在最新版的77 chrome 内， 书中这段代码无法正常执行，提示 foo is not a function。即使把 <code>foo()</code>挪到代码最后执行，输出的是“a”，即函数声明受到了条件语句的控制！！</strong></p>
+<p>应当避免在块的内部声明函数。</p>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>定义：当函数可以记住并访问所在词法作用域时，就产生了闭包，即使函数是在当前词法作用域之外执行。</p>
+<p>外部函数把内部函数传递到了外部，使得内部函数可在词法作用域外访问。这样即使外部函数执行完，垃圾回收机制释放销毁内部作用域被阻止，因为外部有引用该作用域，<strong>这个引用就叫闭包</strong>。</p>
+<p>js里面的大多数回调函数的使用实际上就是在使用闭包（定时器、事件监听、ajax、web workrs 或者其他的异步任务）。</p>
+<h4 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h4><blockquote>
+<p>利用闭包的模块模式</p>
+</blockquote>
+<p>模块模式具备的两个必要条件</p>
+<ol>
+<li>必须有外部的封闭函数，该函数必须至少被调用一次（调用即创建实例）</li>
+<li>封闭函数必须返回至少一个内部函数，这样内部函数才能在私有作用域中形成闭包，并且可以访问或者修改私有的状态。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/blog/" rel="tag"># 博客</a>
+              <a href="/tags/you-don-t-know-js/" rel="tag"># you don't know js</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/02/09/Travis%20%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83%20Hexo%20%E6%96%87%E7%AB%A0/" rel="prev" title="Travis 自动部署 Hexo 文章到gitpage和coding page">
+                  <i class="fa fa-angle-left"></i> Travis 自动部署 Hexo 文章到gitpage和coding page
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/02/23/2024%E6%98%A5/" rel="next" title="2024春">
+                  2024春 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Jam</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
